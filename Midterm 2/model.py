@@ -67,7 +67,7 @@ def count_regions(model):
                 if neighbor.pos not in visited and neighbor.culture == current.culture:
                     queue.append(neighbor)
 
-    return regions  # the number of connected same culture regions
+    return regions 
 
 
 # Helper function to count the number of distinct culture vectors (does not have to be spatially connected)
@@ -79,7 +79,6 @@ def count_unique_culture(model):
     for agent in model.agents:
         unique_culture.add(tuple(agent.culture))
 
-    # Return the number of unique cultures
     return len(unique_culture)
 
 
@@ -122,7 +121,7 @@ class AxelrodModel(Model):
 
     """
     The model places one agent at every fixed grid site
-    Each agent has a culture vector with F features; each feature has one trait value from 0 to num_traits - 1
+    Each agent has a culture vector with n features; each feature has one trait value from 0 to n - 1
     Initial cultures are assigned independently and uniformly at random
 
     One Mesa step equals to N Axelrod events; N = number of sites in the grid
@@ -130,7 +129,7 @@ class AxelrodModel(Model):
     The active site interacts with probability equal to cultural similarity
     If interaction occurs, the active site copies one differing trait from the neighbor
 
-    The model stops when no neighboring pair can change or stops if the maximum number of Mesa steps is reached
+    The model stops when no neighboring pair can change or stops if the maximum number of Mesa steps is reached (set by user)
     """
 
     # Define initiation
@@ -209,7 +208,6 @@ class AxelrodModel(Model):
                 if cell_agents:  # Add the agent in that cell if one exists
                     neighbors.append(cell_agents[0])
 
-        # Return all valid neighbors
         return neighbors
 
     # Define model step; one Mesa step is defined as N Axelrod events; N is the number of sites in the grid
@@ -231,7 +229,7 @@ class AxelrodModel(Model):
         for _ in range(num_sites):
             agent = self.random.choice(list(self.agents))
             agent.interact()
-            self.event_count += 1 # Count this Axelrod event
+            self.event_count += 1
 
         self.current_step += 1
 

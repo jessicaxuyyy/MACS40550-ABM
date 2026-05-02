@@ -71,7 +71,7 @@ model_params = {
     },
 }
 
-# Define text information shown in the GUI
+# Define information shown in the GUI
 def model_information(model):
     return solara.Markdown(
         f"""
@@ -86,13 +86,13 @@ model = AxelrodModel()
 # Define model space component
 space_component = make_space_component(agent_portrayal)
 
-# Define plot for number of cultural regions over time
+# Define plot for number of cultural regions 
 regions_chart = make_plot_component("num_regions")
 
-# Define plot for number of unique culture over time
+# Define plot for number of unique culture 
 unique_cultures_chart = make_plot_component("num_unique_culture")
 
-# Define plot for mean cultural similarity between neighbors over time
+# Define plot for mean cultural similarity between neighbors
 mean_similarity_chart = make_plot_component("mean_similarity")
 
 # Define other aspects of Solara

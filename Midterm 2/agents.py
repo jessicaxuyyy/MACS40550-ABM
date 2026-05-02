@@ -3,7 +3,8 @@ from mesa import Agent
 class AxelrodAgent(Agent):
 
     """
-    Each agent occupies one fixed grid site and has a culture vector with n features; each feature has one trait from 0 to num_traits - 1
+    Each agent occupies one grid site and has a culture vector with n features
+    each feature has one trait from 0 to n - 1
     In each event, the active agent chooses one neighbor at random
     The agent calculates cultural similarity with that neighbor; similarity is the share of features with the same trait
     The agent interacts with probability equal to similarity
@@ -11,7 +12,7 @@ class AxelrodAgent(Agent):
     And only the active agent changes, and the neighbor does not change
     """
 
-    # Initiate agent and model property from parent class
+    # Initiate agent and model
     def __init__(self, model, culture):
         super().__init__(model)
 
@@ -20,7 +21,7 @@ class AxelrodAgent(Agent):
     # One Axelrod event for selected active agent
     def interact(self):
         """
-        The active agent first gets its possible neighbors, and one neighbor is randomly selected from the neighborhood
+        The active agent first gets its possible neighbors, and one neighbor is randomly selected from neighborhood
         The probability of interaction = cultural similarity
         If the two agents share no features, no interaction resulted
         If the two agents are identical, the event occurs but no feature changes
@@ -39,8 +40,8 @@ class AxelrodAgent(Agent):
         shared = sum(a == b for a, b in zip(self.culture, neighbor.culture))
         similarity = shared / self.model.num_feature
 
-        # If similarity = 0, interaction probability = 0; 
-        # If similarity = 1, the event is allowed but no trait changes (event_count increases by 1 regardless of what interact() returns)
+        # If similarity = 0, interaction probability = 0; if similarity = 1, the event is allowed but no trait changes 
+        # event_count increases by 1 regardless of what interact() returns
         if similarity == 0 or similarity == 1:
             return
 
